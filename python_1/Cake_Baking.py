@@ -1,4 +1,3 @@
-
 step = 0
 print('Hello! Today we are baking a cake! Before we begin, what is your name?')
 Name = input('')
