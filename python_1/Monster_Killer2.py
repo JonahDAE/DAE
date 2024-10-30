@@ -1,7 +1,7 @@
 import random
 # Below is for the monsters and the stats. Some or most of the monsters will go unused... But otherwise I will continue this some other time..
+CLv = 1
 gold = 0
-
 #Weapons
 twig = 1
 wooden = 5
@@ -18,7 +18,7 @@ chainmail = 50
 knight = 75
 obsidian = 100
 holy = 150
-articice = 300
+artic_ice = 300
 
 #Monsters
 killed_monsters = 0
@@ -31,17 +31,17 @@ drow = ['drow',15,5]
 troll = ['troll',25,7]
 giant = ['giant',35,10]
 #Lv3
-hellhound = ['hellhound',75,1]
-manticore = ['manticore',100,1]
-wendigo = ['wendigo',125,1]
+hellhound = ['hellhound',75,20]
+manticore = ['manticore',100,35]
+wendigo = ['wendigo',125,40]
 #Lv4
-reaper = ['reaper',200,1]
-mindflayer = ['mindflayer',200,1]
-dragon = ['dragon',250,1,]
+reaper = ['reaper',200,50]
+mindflayer = ['mindflayer',200,50]
+dragon = ['dragon',250,60,]
 #Lv5
-medusa = ['medusa',300,1]
-minotaur = ['minotaur',300,1]
-aincient_dragon = ['aincient_dragon',350,1]
+medusa = ['medusa',300,70]
+minotaur = ['minotaur',300,80]
+aincient_dragon = ['aincient_dragon',350,99]
 
 Lv1 = [ratbird,goblin,imp,random.randint(1,5)]
 Lv2 = [drow,troll,giant,random.randint(6,15)]
@@ -49,14 +49,12 @@ Lv3 = [hellhound,manticore,wendigo,random.randint(16,30)]
 Lv4 = [reaper,mindflayer,dragon,random.randint(31,50)]
 Lv5 = [medusa,minotaur,aincient_dragon,random.randint(51,100)]
 
-levels = [Lv1,Lv2]
+levels = [Lv1,Lv2,Lv3,Lv4,Lv5]
 
-weapon = wooden
+weapon = twig
 armor = leather
 #Here is the definition of the fighting sequence
 def fight():
-    armor = 100*random.randint(10,100)
-    killed_monsters = 0
     monster = random.choice(levels)
     if monster == Lv1:
         monster = random.choice(Lv1)
@@ -107,9 +105,13 @@ print('Enter your name here:')
 playername = input('')
 gameactive = 'yes'
 if gameactive == 'yes':
-    print('')
-    print('Hello, ' + playername + '!')
-    print('You can type \"fight\" to start fighting monsters!')
-    decision = input('')
-    if decision == 'fight':
-        fight ()
+    def play_game():
+        print('')
+        print('Hello, ' + playername + '!')
+        print('You can type \"fight\" to start fighting monsters!')
+        print('You can also type \"shop\" to go to the shop and buy items!')
+        decision = input('')
+        if decision == 'fight':
+            fight ()
+        else: play_game()
+    play_game()
