@@ -43,48 +43,40 @@ medusa = ['medusa',300,1]
 minotaur = ['minotaur',300,1]
 aincient_dragon = ['aincient_dragon',350,1]
 
-Lv1 = [ratbird,goblin,imp,random.randint(1,5)]
-Lv2 = [drow,troll,giant,random.randint(6,15)]
+#These are the monsters sorted into levels for lists. The random.randint is for gold, they are unused in some of the code because of a problem.
+Lv1 = [ratbird,goblin,imp]
+Lv2 = [drow,troll,giant]
 Lv3 = [hellhound,manticore,wendigo,random.randint(16,30)]
 Lv4 = [reaper,mindflayer,dragon,random.randint(31,50)]
 Lv5 = [medusa,minotaur,aincient_dragon,random.randint(51,100)]
 
+#The used levels
 levels = [Lv1,Lv2]
 
 weapon = wooden
 armor = leather
 #Here is the definition of the fighting sequence
+#This is where a random monster is being chosen at random
 def fight():
     armor = 100*random.randint(10,100)
     killed_monsters = 0
     monster = random.choice(levels)
     if monster == Lv1:
         monster = random.choice(Lv1)
-        earnable_gold = Lv1[3]
     elif monster == Lv2:
         monster = random.choice(Lv2)
-        earnable_gold = Lv2[3]
-    elif monster == Lv3:
-        monster = random.choice(Lv3)
-        earnable_gold = Lv3[3]
-    elif monster == Lv4:
-        monster = random.choice(Lv4)
-        earnable_gold = Lv4[3]
-    elif monster == Lv5:
-        monster = random.choice(Lv5)
-        earnable_gold = Lv5[3]
-    
+    #This is the dialouge and reactions. The dialouge is shown through the print command. The reactions depend on the stats of the characters and weapons.
     monster_def = monster[1]
     monster_str = monster[2]
-    
     print('A ' + monster[0] + ' appears!')
     while monster_def != 0:
         print('You draw your weapon and swing...')
         monster_def = monster_def - weapon
-        if monster_def < 0:
+        if monster_def <= 0:
+            #You would win your fight against the monster here.
             monster_def = 0
             killed_monsters = killed_monsters + 1
-            print('Congrats! You defeated the ' + monster[0] + ' and gained ' + str(earnable_gold) + ' gold!')
+            print('Congrats! You defeated the ' + monster[0] + '!')
             decision = input('')
             if decision == 'fight':
                 fight ()
@@ -92,14 +84,12 @@ def fight():
             print('The ' + monster[0] + ' flinches, but attacks back!')
             armor = armor - monster_str
             if armor <= 0:
+                #Here you would lose.
                 print('You have died. GAME OVER')
                 monster_def = 0
                 gold = gold - (10*killed_monsters)
                 if gold < 0:
                     gold = 0
-
-
-
 
 #This is where the game begins
 print('Hello! Welcome to Monster Killer, the game about killing monsters!')
@@ -113,3 +103,4 @@ if gameactive == 'yes':
     decision = input('')
     if decision == 'fight':
         fight ()
+    #This command would put a fight between a monster in action.
